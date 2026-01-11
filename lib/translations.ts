@@ -49,6 +49,7 @@ export const translations = {
     // Services Section
     servicesTitle: "施設案内",
     servicesSubtitle: "快適な滞在をサポートする充実の設備とサービス",
+    fullyPrivate: "完全プライベート",
     privateParking: "専用駐車場",
     privateParkingDesc: "各コテージに専用駐車スペース完備",
     wifi: "無料Wi-Fi",
@@ -158,6 +159,7 @@ export const translations = {
     // Services Section
     servicesTitle: "Facilities",
     servicesSubtitle: "Comprehensive facilities and services to support your comfortable stay",
+    fullyPrivate: "Fully Private",
     privateParking: "Private Parking",
     privateParkingDesc: "Dedicated parking space for each cottage",
     wifi: "Free Wi-Fi",
