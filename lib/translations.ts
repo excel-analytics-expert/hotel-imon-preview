@@ -105,6 +105,8 @@ export const translations = {
     menu3Desc: "岩手の郷土料理「わんこそば」を気軽にお楽しみいただける御膳セット。地元の味をご堪能ください。",
     menu3Price: "¥2,800",
     menuNote: "※お食事は事前にご予約が必要です。詳しくはお電話（019-625-1513）にてお問い合わせください。",
+    reservation: "ご予約について",
+    reservationDesc: "ご予約・お問い合わせはお電話にて承っております。",
   },
   en: {
     // Header
@@ -214,6 +216,8 @@ export const translations = {
     menu3Desc: "A set meal where you can casually enjoy Iwate's local dish 'Wanko Soba'. Savor the local flavor.",
     menu3Price: "¥2,800",
     menuNote: "※Meals require advance reservation. Please contact us by phone (019-625-1513) for details.",
+    reservation: "Reservations",
+    reservationDesc: "For reservations and inquiries, please contact us by phone.",
   },
 }
 
