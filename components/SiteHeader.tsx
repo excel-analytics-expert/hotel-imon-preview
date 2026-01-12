@@ -1,22 +1,23 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
 import { Menu, X, Phone, Globe } from "lucide-react"
 import { useLanguage } from "@/contexts/LanguageContext"
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false)
-  const { language, setLanguage } = useLanguage()
+  const { language, setLanguage, t } = useLanguage()
 
-  const navLinks = [
-    { name: language === "ja" ? "コンセプト" : "Concept", href: "/#concept" },
-    { name: language === "ja" ? "客室" : "Rooms", href: "/rooms" },
-    { name: language === "ja" ? "料金" : "Pricing", href: "/#pricing" },
-    { name: language === "ja" ? "お食事" : "Dining", href: "/menu" },
-    { name: language === "ja" ? "施設案内" : "Services", href: "/#services" },
-    { name: language === "ja" ? "アクセス" : "Access", href: "/#access" },
-  ]
+  const navLinks = useMemo(() => [
+    { nameKey: "concept" as const, href: "/#concept" },
+    { nameKey: "rooms" as const, href: "/rooms" },
+    { nameKey: "pricing" as const, href: "/#pricing" },
+    { nameKey: "menu" as const, href: "/menu" },
+    { nameKey: "services" as const, href: "/#services" },
+    { nameKey: "access" as const, href: "/#access" },
+    { nameKey: "phoneReservation" as const, href: "tel:019-625-1513", isPhone: true },
+  ], [])
 
   const toggleLanguage = () => setLanguage(language === "ja" ? "en" : "ja")
 
@@ -47,13 +48,13 @@ export default function SiteHeader() {
           </div>
 
           <nav className="hidden xl:flex items-center space-x-14">
-            {navLinks.map((link) => (
+            {navLinks.filter(link => !link.isPhone).map((link) => (
               <Link
-                key={link.name}
+                key={link.nameKey}
                 href={link.href}
                 className="text-white/60 hover:text-amber-500/70 text-[13px] font-medium transition-all duration-1000 tracking-[0.3em] uppercase"
               >
-                {link.name}
+                {t(link.nameKey as any)}
               </Link>
             ))}
           </nav>
@@ -83,19 +84,31 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      <div className={`xl:hidden fixed inset-0 bg-black/95 backdrop-blur-3xl z-[105] transition-all duration-[1000ms] ease-in-out ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
-        <nav className="flex flex-col items-center justify-center h-full space-y-10 pb-20">
-          {navLinks.map((link, i) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              onClick={() => setIsOpen(false)} 
-              className={`text-white/60 text-2xl font-serif tracking-[0.4em] hover:text-amber-500 transition-all duration-700 uppercase transform ${isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              {link.name}
-            </Link>
-          ))}
+      <div className={`xl:hidden fixed inset-0 z-[105] transition-all duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1410]/98 via-[#2a1b12]/97 to-[#1a1410]/98 backdrop-blur-[20px]"></div>
+        <div className="absolute inset-0 bg-[url('/medium-wood-texture.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+        <nav className="relative z-10 flex flex-col items-center justify-center h-full space-y-8 pb-20 px-6">
+          {navLinks.map((link, i) => {
+            const Component = link.isPhone ? 'a' : Link
+            const props = link.isPhone 
+              ? { href: link.href }
+              : { href: link.href, onClick: () => setIsOpen(false) }
+            
+            return (
+              <Component
+                key={link.nameKey}
+                {...props}
+                className={`text-white/95 text-2xl md:text-3xl font-serif tracking-[0.4em] hover:text-amber-500/90 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] uppercase transform ${isOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-8 opacity-0 scale-95"} relative group`}
+                style={{ 
+                  transitionDelay: `${isOpen ? i * 120 + 200 : 0}ms`,
+                  textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.4)'
+                }}
+              >
+                <span className="relative z-10">{t(link.nameKey as any)}</span>
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-amber-500/80 to-amber-500/40 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:w-full"></span>
+              </Component>
+            )
+          })}
         </nav>
       </div>
     </header>
