@@ -85,66 +85,87 @@ export default function SiteHeader() {
       </div>
 
       <div className={`xl:hidden fixed inset-0 z-[105] transition-all duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/99 via-[#1a1410]/98 to-[#0a0806]/99 backdrop-blur-[25px]"></div>
-        <div className="absolute inset-0 bg-[url('/medium-wood-texture.jpg')] bg-cover bg-center opacity-15 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806]/99 via-[#1a1410]/98 to-[#0a0806]/99 backdrop-blur-[30px]"></div>
+        <div className="absolute inset-0 bg-[url('/medium-wood-texture.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/80 to-black/85"></div>
         
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-6 right-6 z-20 w-14 h-14 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-500/90 hover:text-amber-500 hover:bg-black/80 hover:border-amber-500/50 transition-all duration-500 focus:outline-none"
+          className="absolute top-8 right-8 z-30 w-16 h-16 flex items-center justify-center rounded-full bg-black/80 backdrop-blur-xl border-2 border-amber-500/40 text-amber-500/95 hover:text-amber-500 hover:bg-black/90 hover:border-amber-500/60 transition-all duration-500 focus:outline-none shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
           aria-label={language === "ja" ? "メニューを閉じる" : "Close menu"}
         >
-          <X className="w-7 h-7" />
+          <X className="w-8 h-8" strokeWidth={2.5} />
         </button>
 
-        <div className="relative z-10 h-full flex flex-col px-6 pt-24 pb-8 overflow-y-auto">
-          <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
-            <nav className="space-y-3 mb-12">
+        <div className="relative z-10 h-full flex flex-col px-8 pt-32 pb-12 overflow-y-auto">
+          <div className="flex-1 flex flex-col justify-center max-w-lg mx-auto w-full space-y-8">
+            <nav className="space-y-4">
               {navLinks.filter(link => !link.isPhone).map((link, i) => (
                 <Link
                   key={link.nameKey}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`block w-full py-5 px-6 text-left text-white/95 text-xl font-serif tracking-[0.3em] hover:text-amber-500/90 hover:bg-white/5 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] uppercase rounded-lg border border-transparent hover:border-amber-500/20 relative group transform ${isOpen ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"}`}
+                  className={`block w-full py-6 px-8 text-left text-white text-2xl font-serif tracking-[0.3em] hover:text-amber-500/95 hover:bg-white/8 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] uppercase rounded-xl border border-transparent hover:border-amber-500/30 relative group transform ${isOpen ? "translate-x-0 opacity-100" : "translate-x-12 opacity-0"}`}
                   style={{ 
-                    transitionDelay: `${isOpen ? i * 100 + 300 : 0}ms`,
-                    textShadow: '0 2px 25px rgba(0,0,0,0.9), 0 0 50px rgba(0,0,0,0.6)',
-                    minHeight: '56px'
+                    transitionDelay: `${isOpen ? i * 120 + 400 : 0}ms`,
+                    textShadow: '0 2px 30px rgba(0,0,0,1), 0 0 60px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.9)',
+                    minHeight: '64px',
+                    WebkitTapHighlightColor: 'transparent'
                   }}
                 >
-                  <span className="relative z-10">{t(link.nameKey as any)}</span>
-                  <span className="absolute left-0 top-0 bottom-0 w-0 bg-gradient-to-r from-amber-500/20 to-transparent transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:w-full rounded-lg"></span>
+                  <span className="relative z-10 block">{t(link.nameKey as any)}</span>
+                  <span className="absolute left-0 top-0 bottom-0 w-0 bg-gradient-to-r from-amber-500/25 to-transparent transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:w-full rounded-xl"></span>
                 </Link>
               ))}
             </nav>
 
-            <div className="pt-8 border-t border-amber-500/20">
-              <a
-                href="tel:019-625-1513"
-                onClick={() => setIsOpen(false)}
-                className={`block w-full py-5 px-6 text-center text-amber-500/95 text-lg font-serif tracking-[0.4em] bg-amber-500/10 border-2 border-amber-500/40 hover:bg-amber-500/20 hover:border-amber-500/60 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] uppercase rounded-lg relative group transform ${isOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-8 opacity-0 scale-95"}`}
-                style={{ 
-                  transitionDelay: `${isOpen ? navLinks.filter(link => !link.isPhone).length * 100 + 500 : 0}ms`,
-                  textShadow: '0 2px 20px rgba(189,160,102,0.5), 0 0 30px rgba(189,160,102,0.3)',
-                  minHeight: '56px'
-                }}
-              >
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  <Phone className="w-5 h-5" />
-                  {t("phoneReservation" as any)}
-                </span>
-              </a>
+            <div className="pt-12 border-t-2 border-amber-500/30 space-y-6">
+              <div className="space-y-4">
+                <a
+                  href="tel:019-625-1513"
+                  onClick={() => setIsOpen(false)}
+                  className={`block w-full py-6 px-8 text-center text-amber-500/98 text-xl font-serif tracking-[0.4em] bg-amber-500/15 border-2 border-amber-500/50 hover:bg-amber-500/25 hover:border-amber-500/70 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] uppercase rounded-xl relative group transform ${isOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-10 opacity-0 scale-95"}`}
+                  style={{ 
+                    transitionDelay: `${isOpen ? navLinks.filter(link => !link.isPhone).length * 120 + 600 : 0}ms`,
+                    textShadow: '0 2px 25px rgba(189,160,102,0.6), 0 0 40px rgba(189,160,102,0.4), 0 4px 8px rgba(0,0,0,0.8)',
+                    minHeight: '64px',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-3">
+                    <Phone className="w-6 h-6" />
+                    {t("phoneReservation" as any)}
+                  </span>
+                </a>
+                <a
+                  href="tel:019-625-1513"
+                  onClick={() => setIsOpen(false)}
+                  className={`block w-full py-6 px-8 text-center text-white/95 text-lg font-serif tracking-[0.3em] bg-white/5 border border-white/20 hover:bg-white/10 hover:border-amber-500/40 hover:text-amber-500/90 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] uppercase rounded-xl transform ${isOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-10 opacity-0 scale-95"}`}
+                  style={{ 
+                    transitionDelay: `${isOpen ? navLinks.filter(link => !link.isPhone).length * 120 + 700 : 0}ms`,
+                    textShadow: '0 2px 25px rgba(0,0,0,0.9), 0 0 50px rgba(0,0,0,0.7)',
+                    minHeight: '64px',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
+                >
+                  {language === "ja" ? "RESERVATION" : "RESERVATION"}
+                </a>
+              </div>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-amber-500/10">
+            <div className="pt-8 border-t border-amber-500/20">
               <button
                 onClick={toggleLanguage}
-                className={`block w-full py-4 px-6 text-center text-white/70 text-sm font-serif tracking-[0.3em] hover:text-amber-500/80 transition-all duration-500 uppercase rounded-lg border border-white/10 hover:border-amber-500/30 transform ${isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
+                className={`block w-full py-5 px-8 text-center text-white/80 text-base font-serif tracking-[0.3em] hover:text-amber-500/90 hover:bg-white/5 transition-all duration-500 uppercase rounded-xl border border-white/15 hover:border-amber-500/40 transform ${isOpen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
                 style={{ 
-                  transitionDelay: `${isOpen ? navLinks.filter(link => !link.isPhone).length * 100 + 700 : 0}ms`
+                  transitionDelay: `${isOpen ? navLinks.filter(link => !link.isPhone).length * 120 + 900 : 0}ms`,
+                  textShadow: '0 2px 20px rgba(0,0,0,0.8)',
+                  minHeight: '56px',
+                  WebkitTapHighlightColor: 'transparent'
                 }}
               >
-                <span className="flex items-center justify-center gap-2">
-                  <Globe className="w-4 h-4" />
+                <span className="flex items-center justify-center gap-3">
+                  <Globe className="w-5 h-5" />
                   {language === "ja" ? "ENGLISH" : "日本語"}
                 </span>
               </button>
